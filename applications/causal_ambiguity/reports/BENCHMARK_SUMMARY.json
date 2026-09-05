@@ -1,0 +1,23 @@
+{
+  "benchmark_type": "controlled synthetic finite-sample SCM proxy benchmark",
+  "external_csuite_executed": false,
+  "instances_per_policy": 432,
+  "total_policy_runs": 1728,
+  "trajectory_rows": 19008,
+  "epsilon": 0.3,
+  "max_steps": 10,
+  "first_step_oica_graph_disagreement_rate": 0.8310185185185185,
+  "policy_summary": {
+    "ClassSize": {"instances": 432,"success_rate": 0.263889,"mean_tau": 10.548611,"median_tau": 11.0,"mean_final_omega": 0.45513,"mean_regret": 0.033944,"mean_cost": 12.077216,"mean_graph_diameter": 0.214213,"mean_class_size": 3.194444},
+    "Graph": {"instances": 432,"success_rate": 0.479167,"mean_tau": 10.053241,"median_tau": 11.0,"mean_final_omega": 0.313965,"mean_regret": 0.01446,"mean_cost": 11.839166,"mean_graph_diameter": 0.168815,"mean_class_size": 2.604167},
+    "OICA": {"instances": 432,"success_rate": 0.657407,"mean_tau": 9.122685,"median_tau": 9.0,"mean_final_omega": 0.241543,"mean_regret": 0.012874,"mean_cost": 12.031908,"mean_graph_diameter": 0.198347,"mean_class_size": 2.564815},
+    "Random": {"instances": 432,"success_rate": 0.56713,"mean_tau": 9.678241,"median_tau": 10.0,"mean_final_omega": 0.27202,"mean_regret": 0.011744,"mean_cost": 11.987062,"mean_graph_diameter": 0.191249,"mean_class_size": 2.608796}
+  },
+  "paired_oica_vs_graph": [
+    {"metric":"tau_eps","mean_OICA_minus_Graph":-0.9305555555555556,"ci95_low":-1.087962962962963,"ci95_high":-0.7731481481481481,"oica_better_fraction":0.4861111111111111},
+    {"metric":"final_omega","mean_OICA_minus_Graph":-0.07242222763594716,"ci95_low":-0.08950004066264731,"ci95_high":-0.055582699782678664,"oica_better_fraction":0.5486111111111112},
+    {"metric":"final_regret","mean_OICA_minus_Graph":-0.0015860301512110634,"ci95_low":-0.00694057274427649,"ci95_high":0.0036377650708827097,"oica_better_fraction":0.11805555555555555},
+    {"metric":"final_cost","mean_OICA_minus_Graph":0.1927422500727356,"ci95_low":0.04261306264748959,"ci95_high":0.35042176630869026,"oica_better_fraction":0.4513888888888889}
+  ],
+  "falsification_note": "This controlled synthetic benchmark is empirical within the generated finite-sample model classes, but it is not a substitute for external CSuite validation."
+}
