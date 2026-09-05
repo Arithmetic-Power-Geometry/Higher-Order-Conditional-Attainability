@@ -1,0 +1,5 @@
+{
+  "exact_rows": 12,
+  "cardinality_incomparability_verified": true,
+  "intervention_counterexample_verified": true
+}
