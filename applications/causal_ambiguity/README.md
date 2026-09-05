@@ -9,7 +9,7 @@ pip install -r applications/causal_ambiguity/requirements.txt
 python applications/causal_ambiguity/reproduce.py
 ```
 
-The reproduction now runs both the original exact finite audit and a controlled finite-sample synthetic benchmark, followed by the automated tests.
+The reproduction runs both the original exact finite audit and a controlled finite-sample synthetic benchmark, followed by the automated tests.
 
 ## Exact finite audit
 
@@ -21,14 +21,18 @@ The benchmark compares four matched intervention policies: OICA task-ambiguity m
 
 With decision-sufficiency tolerance epsilon=0.30, the reproducible run reports:
 
-| Policy | success rate | mean stopping time | final task ambiguity | final regret | final graph-diameter proxy |
-|---|---:|---:|---:|---:|---:|
-| OICA | 0.6574 | 9.1227 | 0.2415 | 0.0129 | 0.1983 |
-| Graph | 0.4792 | 10.0532 | 0.3140 | 0.0145 | 0.1688 |
-| ClassSize | 0.2639 | 10.5486 | 0.4551 | 0.0339 | 0.2142 |
-| Random | 0.5671 | 9.6782 | 0.2720 | 0.0117 | 0.1912 |
+| Policy | success rate | mean capped stopping score | final task ambiguity | final regret | mean cumulative cost | final graph-diameter proxy |
+|---|---:|---:|---:|---:|---:|---:|
+| OICA | 0.6574 | 9.1227 | 0.2415 | 0.0129 | 12.0319 | 0.1983 |
+| Graph | 0.4792 | 10.0532 | 0.3140 | 0.0145 | 11.8392 | 0.1688 |
+| ClassSize | 0.2639 | 10.5486 | 0.4551 | 0.0339 | 12.0772 | 0.2142 |
+| Random | 0.5671 | 9.6782 | 0.2720 | 0.0117 | 11.9871 | 0.1912 |
 
-The paired OICA-minus-Graph difference in stopping time is -0.9306 interventions (95% bootstrap CI -1.0880 to -0.7731), and the paired difference in final task ambiguity is -0.0724 (95% CI -0.0895 to -0.0556). OICA and the graph-oriented criterion select different first interventions in 83.10% of matched instances. OICA does not dominate every endpoint: the graph proxy attains a smaller final structural-diameter proxy and OICA's final-regret confidence interval overlaps zero. These distinctions are retained as part of the falsifiable evaluation rather than suppressed.
+### Censored stopping-score convention
+
+Each run permits at most 10 interventions. If a run reaches `Omega_T <= epsilon` within the budget, its observed stopping time is the first such step. For summaries across all matched instances, an unsuccessful run is assigned the capped/censored score 11. Therefore the endpoint field historically named `tau_eps` and the reported means above are capped stopping scores, not observed eleventh interventions or uncensored mean stopping times. Success rate is reported separately. See `reports/STOPPING_SCORE_CLARIFICATION.md` for the exact reporting convention.
+
+The paired OICA-minus-Graph difference in capped stopping score is -0.9306 (95% bootstrap CI -1.0880 to -0.7731), and the paired difference in final task ambiguity is -0.0724 (95% CI -0.0895 to -0.0556). OICA and the graph-oriented criterion select different first interventions in 83.10% of matched instances. OICA does not dominate every endpoint: the graph proxy attains a smaller final structural-diameter proxy; the paired final-regret confidence interval overlaps zero; and OICA uses modestly greater cumulative intervention cost. These distinctions are retained as part of the falsifiable evaluation rather than suppressed.
 
 ### Scope boundary
 
@@ -42,7 +46,7 @@ This run is a controlled synthetic finite-sample benchmark. It is **not** an ext
 - `results/paired_oica_vs_graph.csv`
 - `reports/BENCHMARK_SUMMARY.json`
 - `reports/BENCHMARK_PROTOCOL.md`
-- `reports/final_reproduction_benchmark.txt`
+- `reports/STOPPING_SCORE_CLARIFICATION.md`
 - generated benchmark figures in `figures/`
 
 ## HCAT parent framework
