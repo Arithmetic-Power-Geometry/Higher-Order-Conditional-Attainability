@@ -24,3 +24,18 @@ def test_exact_audit_runs():
     gs=all_ordered_dags(4)
     for k in range(1,5):
         assert len(compatibility_classes(gs,4,k))>=1
+
+def test_causal_scm_realization():
+    x=causal_scm_incomparability_realization()
+    assert x['A']['cardinality']>x['B']['cardinality']
+    assert x['A']['task_diameter']<x['B']['task_diameter']
+    assert x['D']['cardinality']>x['C']['cardinality']
+    assert x['D']['task_diameter']>x['C']['task_diameter']
+
+def test_exact_regret_certificate():
+    utilities={'safe':{'m0':0.7,'m1':0.7},'risky':{'m0':1.0,'m1':0.0}}
+    d=lambda a,b: 0.0 if a==b else 1.0
+    x=exact_maximin_regret_bound(utilities,'m0',['m0','m1'],d,L=1.0)
+    assert x['verified']
+    assert x['regret'] <= x['radius_bound'] + 1e-12
+    assert x['radius_bound'] <= x['diameter_bound'] + 1e-12
