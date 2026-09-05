@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+title: "Order-Indexed Causal Ambiguity: HCAT Application Module"
+message: "If you use this software, please cite the associated manuscript and the HCAT repository."
+type: software
+authors:
+  - family-names: Akhtar
+    given-names: Mohammad Amir Khusru
+license: Apache-2.0
+repository-code: "https://github.com/Arithmetic-Power-Geometry/Higher-Order-Conditional-Attainability"
