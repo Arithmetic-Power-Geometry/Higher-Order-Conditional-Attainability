@@ -1,5 +1,7 @@
 {
   "exact_rows": 12,
   "cardinality_incomparability_verified": true,
+  "causal_scm_realization_verified": true,
+  "exact_regret_certificate_verified": true,
   "intervention_counterexample_verified": true
 }
