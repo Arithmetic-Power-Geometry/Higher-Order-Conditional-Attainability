@@ -2,7 +2,7 @@
 
 A reproducible research package for bounded-order observation classes, exact finite opacity, attainability rank, and robust-decision guarantees.
 
-## One-click GitHub workflow
+## GitHub workflow
 Upload this folder to a GitHub repository. Open **Actions -> HCAT Reproduce -> Run workflow**. The workflow installs dependencies, runs all tests, regenerates every CSV and figure, and uploads the results as a GitHub Actions artifact.
 
 ## Local reproduction
