@@ -71,11 +71,57 @@ def class_metrics(cls:Sequence[Graph],d:int)->Dict[str,float]:
     return {'class_size':len(cls),'omega_struct':diameter(cls,structural_distance),'omega_interv':diameter(cls,lambda a,b:intervention_distance(a,b,d)),'omega_task':diameter(cls,lambda a,b:task_distance(a,b,d))}
 
 def synthetic_incomparability_examples():
+    # Constructed finite compatibility classes proving cardinality and consequential diameter are incomparable.
+    # Class A: four models tightly clustered in task values; Class B: two models maximally separated.
     A=[0.00,0.10,0.15,0.20]; B=[0.00,1.00]
+    # Reverse direction: more models can also have larger diameter.
     C=[0.00,0.20]; D=[0.00,0.25,0.50,0.75,1.00]
     return {'A_size':len(A),'A_omega':max(A)-min(A),'B_size':len(B),'B_omega':max(B)-min(B),
             'C_size':len(C),'C_omega':max(C)-min(C),'D_size':len(D),'D_omega':max(D)-min(D)}
 
 def intervention_counterexample():
+    # Deliberate decision-design counterexample. I_A removes more models but leaves wide task range;
+    # I_B removes fewer models but sharply reduces consequential ambiguity.
     return {'initial_size':1000,'initial_omega':1.0,
             'IA_size':50,'IA_omega':0.85,'IB_size':500,'IB_omega':0.08}
+
+def causal_scm_incomparability_realization():
+    """Concrete finite SCM realization used by the manuscript incomparability theorem.
+
+    Observational regime: context Z is observed, treatment X is fixed to 0, and
+    Y = X * 1[U <= p], U~Unif(0,1). Thus models sharing Z are observationally
+    indistinguishable, while P(Y=1 | do(X=1)) = p. The task metric is |p-p'|.
+    """
+    classes = {
+        'A': [0.00, 0.10, 0.15, 0.20],
+        'B': [0.00, 1.00],
+        'C': [0.00, 0.20],
+        'D': [0.00, 0.25, 0.50, 0.75, 1.00],
+    }
+    out = {}
+    for z, ps in classes.items():
+        out[z] = {
+            'context': z,
+            'observational_signature': f'Z={z};X=0;Y=0',
+            'p_values': ps,
+            'cardinality': len(ps),
+            'task_diameter': max(ps)-min(ps),
+        }
+    return out
+
+def exact_maximin_regret_bound(utilities, true_model, compatible_models, distance, L=1.0):
+    """Audit the exact theorem: regret <= L * radius <= L * diameter."""
+    if isinstance(utilities, dict):
+        actions = list(utilities.keys())
+        U = lambda a,m: utilities[a][m]
+    else:
+        actions = list(utilities.actions)
+        U = utilities
+    a_star = max(actions, key=lambda a: U(a,true_model))
+    a_hat = max(actions, key=lambda a: min(U(a,m) for m in compatible_models))
+    regret = U(a_star,true_model)-U(a_hat,true_model)
+    radius = max(distance(true_model,m) for m in compatible_models)
+    diameter = max(distance(m,n) for m in compatible_models for n in compatible_models)
+    return {'a_star':a_star,'a_hat':a_hat,'regret':regret,'radius':radius,'diameter':diameter,
+            'radius_bound':L*radius,'diameter_bound':L*diameter,
+            'verified': regret <= L*radius + 1e-12 and radius <= diameter + 1e-12}
