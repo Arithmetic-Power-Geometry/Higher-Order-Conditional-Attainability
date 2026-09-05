@@ -1,0 +1,2 @@
+a_star,a_hat,regret,radius,diameter,radius_bound,diameter_bound,verified
+risky,safe,0.30000000000000004,1.0,1.0,1.0,1.0,True
