@@ -17,5 +17,16 @@ with open(RES/'cardinality_task_incomparability.csv','w',newline='') as f:
 ic=intervention_counterexample()
 with open(RES/'intervention_counterexample.csv','w',newline='') as f:
     w=csv.DictWriter(f,fieldnames=ic.keys());w.writeheader();w.writerow(ic)
-summary={'exact_rows':len(rows),'cardinality_incomparability_verified':inc['A_size']>inc['B_size'] and inc['A_omega']<inc['B_omega'] and inc['D_size']>inc['C_size'] and inc['D_omega']>inc['C_omega'], 'intervention_counterexample_verified':ic['IA_size']<ic['IB_size'] and ic['IA_omega']>ic['IB_omega']}
+scm=causal_scm_incomparability_realization()
+with open(RES/'causal_scm_incomparability_realization.csv','w',newline='') as f:
+    fields=['class','observational_signature','p_values','cardinality','task_diameter']
+    w=csv.DictWriter(f,fieldnames=fields); w.writeheader()
+    for z,v in scm.items():
+        w.writerow({'class':z,'observational_signature':v['observational_signature'],'p_values':'|'.join(map(str,v['p_values'])),'cardinality':v['cardinality'],'task_diameter':v['task_diameter']})
+utilities={'safe':{'m0':0.7,'m1':0.7},'risky':{'m0':1.0,'m1':0.0}}
+dist=lambda a,b: 0.0 if a==b else 1.0
+reg=exact_maximin_regret_bound(utilities,'m0',['m0','m1'],dist,L=1.0)
+with open(RES/'exact_regret_certificate.csv','w',newline='') as f:
+    w=csv.DictWriter(f,fieldnames=reg.keys()); w.writeheader(); w.writerow(reg)
+summary={'exact_rows':len(rows),'cardinality_incomparability_verified':inc['A_size']>inc['B_size'] and inc['A_omega']<inc['B_omega'] and inc['D_size']>inc['C_size'] and inc['D_omega']>inc['C_omega'], 'causal_scm_realization_verified':scm['A']['cardinality']>scm['B']['cardinality'] and scm['A']['task_diameter']<scm['B']['task_diameter'] and scm['D']['cardinality']>scm['C']['cardinality'] and scm['D']['task_diameter']>scm['C']['task_diameter'], 'exact_regret_certificate_verified':bool(reg['verified']), 'intervention_counterexample_verified':ic['IA_size']<ic['IB_size'] and ic['IA_omega']>ic['IB_omega']}
 (REP/'RESULTS_SUMMARY.json').write_text(json.dumps(summary,indent=2)); print(json.dumps(summary,indent=2))
