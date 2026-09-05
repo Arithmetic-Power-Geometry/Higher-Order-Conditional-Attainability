@@ -1,0 +1,9 @@
+Method,Input,Hidden global structure,Quantitative effect,Residual ambiguity,Order selection,Benefit
+Full-set symmetric difference,Full global set,Yes,No,No,No,Known baseline; requires complete global truth
+≤k projection comparison,Local projections,No when all local views coincide,No,No,No,Tests local equality only
+Natural/lossless join,Local projections,Yes via reconstruction failure,Reconstruction error,No,No,Reconstructs largest compatible relation
+≤k marginal TV,Local marginals,No when marginals coincide,Probability distance,No,No,Probabilistic local comparison
+HCAT rho/Omega prototype,Local observations + global metric,Yes,Yes,Yes,No,Worst residual compatible ambiguity
+HCAT threshold rank,Opacity spectrum,Yes,Yes,Yes,Yes,Minimum order needed below tolerance
+HCAT observation optimizer,Opacity + measurement cost,Yes,Yes,Yes,Yes,Chooses cost/ambiguity trade-off
+HCAT robust decision layer,Compatible envelope class,Yes,Decision regret,Yes,Yes,Converts ambiguity into robust action selection

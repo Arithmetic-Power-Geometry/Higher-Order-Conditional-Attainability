@@ -1,0 +1,11 @@
+{
+  "selected_wdbc_feature_indices": [
+    27,
+    22,
+    7
+  ],
+  "wdbc_relation_mask": 65279,
+  "exact_family_rows": 20,
+  "random_benchmark_rows": 750,
+  "bootstrap_reps": 200
+}

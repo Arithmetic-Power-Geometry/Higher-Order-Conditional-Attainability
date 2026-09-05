@@ -1,0 +1,17 @@
+{
+  "source": "Wisconsin Diagnostic Breast Cancer, UCI Machine Learning Repository",
+  "doi": "10.24432/C5DW2B",
+  "n_samples": 569,
+  "selected_features": [
+    "worst concave points",
+    "worst perimeter",
+    "mean concave points"
+  ],
+  "medians": [
+    0.09993,
+    97.66,
+    0.0335
+  ],
+  "target_coding": "scikit-learn target: 0 malignant, 1 benign",
+  "purpose": "structural support-reconstruction audit only; not clinical prediction"
+}

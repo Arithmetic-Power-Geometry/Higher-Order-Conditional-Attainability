@@ -1,0 +1,27 @@
+{
+  "parity_even": {
+    "mask": 38505,
+    "hex": "0x9669",
+    "states": 8
+  },
+  "threshold_ge2": {
+    "mask": 65256,
+    "hex": "0xfee8",
+    "states": 11
+  },
+  "sparse_xor_order2": {
+    "mask": 23205,
+    "hex": "0x5aa5",
+    "states": 8
+  },
+  "onehot": {
+    "mask": 278,
+    "hex": "0x116",
+    "states": 4
+  },
+  "hypergraph_constraints": {
+    "mask": 6210,
+    "hex": "0x1842",
+    "states": 4
+  }
+}

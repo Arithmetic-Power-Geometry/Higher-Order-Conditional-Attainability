@@ -1,0 +1,5 @@
+dataset,n_samples,selected_features,k,observed_global_states,compatible_global_relations,join_states,join_error,task_radius,task_opacity,utility_opacity,exact_attainability_rank
+Wisconsin Diagnostic Breast Cancer,569,worst concave points | worst perimeter | mean concave points,1,15,63775,16,0.0625,0.9375,1.0,1.0,4
+Wisconsin Diagnostic Breast Cancer,569,worst concave points | worst perimeter | mean concave points,2,15,27535,16,0.0625,0.75,1.0,1.0,4
+Wisconsin Diagnostic Breast Cancer,569,worst concave points | worst perimeter | mean concave points,3,15,743,16,0.0625,0.5625,1.0,1.0,4
+Wisconsin Diagnostic Breast Cancer,569,worst concave points | worst perimeter | mean concave points,4,15,1,15,0.0,0.0,0.0,0.0,4

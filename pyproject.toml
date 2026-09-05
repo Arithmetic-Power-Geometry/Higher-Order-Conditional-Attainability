@@ -1,0 +1,6 @@
+[project]
+name="hcat"
+version="1.0.0"
+description="Higher-Order Conditional Attainability reproducibility package"
+requires-python=">=3.10"
+license={text="Apache-2.0"}
