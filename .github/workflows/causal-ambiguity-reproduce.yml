@@ -1,4 +1,5 @@
 name: Causal Ambiguity Reproduction
+
 on:
   workflow_dispatch:
   push:
@@ -8,6 +9,8 @@ on:
   pull_request:
     paths:
       - 'applications/causal_ambiguity/**'
+      - '.github/workflows/causal-ambiguity-reproduce.yml'
+
 jobs:
   reproduce:
     runs-on: ubuntu-latest
@@ -16,11 +19,15 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install -r applications/causal_ambiguity/requirements.txt
-      - run: python applications/causal_ambiguity/reproduce.py
-      - uses: actions/upload-artifact@v4
+      - name: Install dependencies
+        run: pip install -r applications/causal_ambiguity/requirements.txt
+      - name: Run exact audit, synthetic benchmark, and tests
+        run: python applications/causal_ambiguity/reproduce.py
+      - name: Upload reproducibility artifact
+        uses: actions/upload-artifact@v4
         with:
           name: causal-ambiguity-results
           path: |
             applications/causal_ambiguity/results
             applications/causal_ambiguity/reports
+            applications/causal_ambiguity/figures
